@@ -1,0 +1,54 @@
+---
+name: sslproxy
+templates:
+  location.conf.erb: config/location.conf
+  mime.types: config/mime.types
+  nginx.conf.erb: config/nginx.conf
+  nginx_ctl: bin/nginx_ctl
+  sslproxy.key.erb: config/sslproxy.key
+  sslproxy.pem.erb: config/sslproxy.pem
+
+packages:
+- nginx
+
+properties:
+  sslproxy.worker_processes:
+    description: 'Number of nginx workers'
+    default: 2
+  sslproxy.worker_connections:
+    description: 'Number of nginx connections per worker'
+    default: 8192
+  sslproxy.keepalive_timeout:
+    description: 'Timeout for keep-alive connections'
+    default: '75 20'
+  sslproxy.proxy_connect_timeout:
+    description: 'Timeout for the connection to the upstream server'
+    default: 300
+  sslproxy.proxy_read_timeout:
+    description: 'Timeout for read queries to the upstream server'
+    default: 120
+  sslproxy.proxy_send_timeout:
+    description: 'Timeout for send queries to the upstream server'
+    default: 120
+  sslproxy.http.enabled:
+    description: 'Enable/Disable HTTP requests (true/false)'
+    default: true
+  sslproxy.http.port:
+    description: 'Port that proxy listen on for HTTP connections'
+    default: 80
+  sslproxy.https.port:
+    description: 'Port that proxy listen on for HTTPS connections'
+    default: 443
+  sslproxy.https.ssl_timeout:
+    description: 'Timeout for reusing the previously negotiated cryptographic parameters'
+    default: 7200
+  sslproxy.https.ssl_key:
+    description: 'SSL private key (PEM encoded)'
+  sslproxy.https.ssl_cert:
+    description: 'SSL Certificate (PEM encoded)'
+
+  router.port:
+    description: 'Router port'
+    default: 80
+  router.servers:
+    description: 'Array of router addresses'

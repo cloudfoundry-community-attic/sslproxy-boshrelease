@@ -1,0 +1,65 @@
+user vcap;
+worker_processes     <%= p('sslproxy.worker_processes') %>;
+daemon off;
+
+error_log            /var/vcap/sys/log/sslproxy/error.log;
+pid                  /var/vcap/sys/run/sslproxy/nginx.pid;
+
+events {
+  use epoll;
+  worker_connections <%= p('sslproxy.worker_connections') %>;
+}
+
+http {
+  include            /var/vcap/jobs/sslproxy/config/mime.types;
+  default_type       text/html;
+  server_tokens      off;
+
+  access_log         /var/vcap/sys/log/sslproxy/access.log;
+
+  sendfile           on;
+  tcp_nopush         on;
+  tcp_nodelay        on;
+
+  keepalive_timeout  <%= p('sslproxy.keepalive_timeout') %>;
+
+  gzip               on;
+  gzip_min_length    1250;
+  gzip_buffers       16 8k;
+  gzip_comp_level    2;
+  gzip_proxied       any;
+  gzip_types         text/plain text/css application/javascript application/x-javascript text/xml application/xml application/xml+rss text/javascript;
+  gzip_vary          on;
+  gzip_disable       "MSIE [1-6]\.(?!.*SV1)";
+
+  upstream router {
+    <% p('router.servers').each do |router_server| %>
+    server <%= router_server %>:<%= p('router.port') %>;
+    <% end %>
+  }
+
+  <% if p('sslproxy.http.enabled') %>
+  server {
+    listen <%= p('sslproxy.http.port') %>;
+    server_name  _;
+    server_name_in_redirect off;
+
+    ssl off;
+
+    include /var/vcap/jobs/sslproxy/config/location.conf;
+  }
+  <% end %>
+
+  server {
+    listen <%= p('sslproxy.https.port') %>;
+    server_name  _;
+    server_name_in_redirect off;
+
+    ssl on;
+    ssl_certificate     /var/vcap/jobs/sslproxy/config/ssl/sslproxy.pem;
+    ssl_certificate_key /var/vcap/jobs/sslproxy/config/ssl/sslproxy.key;
+    ssl_session_timeout <%= p('sslproxy.https.ssl_timeout') %>;
+
+    include /var/vcap/jobs/sslproxy/config/location.conf;
+  }
+}

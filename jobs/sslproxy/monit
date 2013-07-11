@@ -1,0 +1,5 @@
+check process sslproxy_nginx
+  with pidfile /var/vcap/sys/run/sslproxy/nginx.pid
+  start program "/var/vcap/jobs/sslproxy/bin/nginx_ctl start"
+  stop program "/var/vcap/jobs/sslproxy/bin/nginx_ctl stop"
+  group vcap

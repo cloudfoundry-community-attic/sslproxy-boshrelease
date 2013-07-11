@@ -1,0 +1,62 @@
+---
+name: sslproxy
+director_uuid: <director-uuid> # CHANGE
+
+releases:
+ - name: sslproxy
+   version: latest
+
+compilation:
+  workers: 3
+  network: default
+  reuse_compilation_vms: true
+  cloud_properties:
+    instance_type: m1.small # CHANGE
+
+update:
+  canaries: 1
+  canary_watch_time: 30000-600000
+  update_watch_time: 30000-600000
+  max_in_flight: 4
+  max_errors: 1
+
+networks:
+  - name: floating
+    type: vip
+    cloud_properties: {}
+  - name: default
+    type: dynamic
+    cloud_properties:
+      security_groups:
+        - default
+        - microbosh
+        - sslproxy # CHANGE: Security group with ports 80 & 443 open
+
+resource_pools:
+  - name: common
+    network: default
+    size: 1
+    stemcell:
+      name: bosh-stemcell
+      version: latest
+    cloud_properties:
+      instance_type: m1.small # CHANGE
+
+jobs:
+  - name: sslproxy
+    template:
+      - sslproxy
+    instances: 1
+    resource_pool: common
+    networks:
+      - name: default
+        default: [dns, gateway]
+      - name: floating
+        static_ips:
+          - <floating-ip> # CHANGE
+
+properties:
+  router:
+    port: 80
+    servers:
+      - 0.router.default.cf.microbosh # CHANGE

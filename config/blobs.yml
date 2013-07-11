@@ -1,0 +1,11 @@
+---
+nginx/nginx-1.4.1.tar.gz:
+  object_id: 1c279f65-8d88-4e56-a48b-ad434e479363
+  sha: !binary |-
+    OWM3MjgzODk3MzU3MjMyMzUzNWRhZTEwZjRlNDEyZDY3MWIyN2E3ZQ==
+  size: 767107
+nginx/pcre-8.32.tar.gz:
+  object_id: 78239e2e-3160-419b-b928-7f199a1609aa
+  sha: !binary |-
+    OTIyNmE1MzM2ZTA0YmJkY2FiMWQ5NGY3NDEzMTUzYWZiZjRhYmY2YQ==
+  size: 1790055
