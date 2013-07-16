@@ -21,6 +21,9 @@ properties:
   sslproxy.keepalive_timeout:
     description: 'Timeout for keep-alive connections'
     default: '75 20'
+  sslproxy.max_upload_size:
+    description: File upload maximum size
+    default: 5000m
   sslproxy.proxy_connect_timeout:
     description: 'Timeout for the connection to the upstream server'
     default: 300
