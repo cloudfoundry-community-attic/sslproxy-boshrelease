@@ -24,6 +24,8 @@ http {
   keepalive_timeout  <%= p('sslproxy.keepalive_timeout') %>;
   client_max_body_size <%= p('sslproxy.max_upload_size') %>;
 
+  ssl_session_cache shared:SSL:10m;
+
   gzip               on;
   gzip_min_length    1250;
   gzip_buffers       16 8k;
@@ -57,9 +59,13 @@ http {
     server_name_in_redirect off;
 
     ssl on;
-    ssl_certificate     /var/vcap/jobs/sslproxy/config/ssl/sslproxy.pem;
-    ssl_certificate_key /var/vcap/jobs/sslproxy/config/ssl/sslproxy.key;
-    ssl_session_timeout <%= p('sslproxy.https.ssl_timeout') %>;
+    ssl_prefer_server_ciphers on;
+    ssl_protocols             SSLv3 TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers               ECDHE-RSA-AES128-SHA256:AES128-GCM-SHA256:RC4:HIGH:!MD5:!aNULL:!EDH;
+    ssl_certificate           /var/vcap/jobs/sslproxy/config/ssl/sslproxy.pem;
+    ssl_certificate_key       /var/vcap/jobs/sslproxy/config/ssl/sslproxy.key;
+    ssl_session_timeout       <%= p('sslproxy.https.ssl_timeout') %>;
+    add_header                Strict-Transport-Security max-age=15768000;
 
     include /var/vcap/jobs/sslproxy/config/location.conf;
   }
