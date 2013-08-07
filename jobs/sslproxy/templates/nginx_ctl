@@ -17,9 +17,9 @@ case $1 in
     # if the properties contain sslproxy.ssl.key & sslproxy.ssl.cert
     # the two files below will contain key & cert, then copy them to
     # the certificates dir
-    if [ -s $CONF_DIR/sslproxy.key -a -s $SSL_DIR/sslproxy.pem ]; then
-      cp $CONFIG_DIR/sslproxy.key $CERTS_DIR
-      cp $CONFIG_DIR/sslproxy.pem $CERTS_DIR
+    if [ -s $CONF_DIR/sslproxy.key -a -s $CONF_DIR/sslproxy.pem ]; then
+      cp $CONF_DIR/sslproxy.key $CERTS_DIR
+      cp $CONF_DIR/sslproxy.pem $CERTS_DIR
     # otherwise, if the key or cert doesn't exist create new ones
     elif [ ! -f $CERTS_DIR/sslproxy.key -o ! -f $CERTS_DIR/sslproxy.pem ]; then
       openssl req -nodes -new -newkey rsa:1024 -out $CERTS_DIR/sslproxy.csr \
