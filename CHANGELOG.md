@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+v3 - August 7, 2013
+------------------
+* Fix ctl script to use correct custom certs
+
 v2 - July 16, 2013
 ------------------
 * Add option to set the file upload maximum size
