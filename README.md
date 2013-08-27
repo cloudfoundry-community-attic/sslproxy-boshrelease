@@ -19,9 +19,12 @@ Now update the `examples/openstack*.yml` woth your settings (look up for #CHANGE
 Finally, target and deploy. For deployment to a bosh running on openstack:
 
 ```
-bosh deployment examples/openstack.yml
+bosh deployment examples/dns.yml
+bosh verify deployment
 bosh deploy
 ```
+
+The `bosh verify deployment` is a local bosh CLI plugin to pre-verify your deployment file for correctness and matching SSL certificate/key.
 
 ### Self-signed certificates by default
 
