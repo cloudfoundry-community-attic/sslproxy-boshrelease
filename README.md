@@ -23,6 +23,12 @@ bosh deployment examples/openstack.yml
 bosh deploy
 ```
 
+### Self-signed certificates by default
+
+By default you do not need to provide a signed SSL certificate. This is very useful for dev/test deployments.
+
+It will mean that Chrome users, for example, will see the red-screen-of-fear. So, its not ideal for production and your lovely end users.
+
 
 ## Development
 
