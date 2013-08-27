@@ -1,6 +1,7 @@
 ---
 name: sslproxy
-director_uuid: <director-uuid> # CHANGE
+# director_uuid: <director-uuid> # CHANGE
+director_uuid: ignore # REMOVE
 
 releases:
  - name: sslproxy
@@ -15,8 +16,8 @@ compilation:
 
 update:
   canaries: 1
-  canary_watch_time: 30000-600000
-  update_watch_time: 30000-600000
+  canary_watch_time: 30000
+  update_watch_time: 30000
   max_in_flight: 4
   max_errors: 1
 
@@ -28,9 +29,7 @@ networks:
     type: dynamic
     cloud_properties:
       security_groups:
-        - default
-        - microbosh
-        - sslproxy # CHANGE: Security group with ports 80 & 443 open
+        - sslproxy # CHANGE: Security group with ports 22, 80 & 443 open
 
 resource_pools:
   - name: common
@@ -53,7 +52,7 @@ jobs:
         default: [dns, gateway]
       - name: floating
         static_ips:
-          - <floating-ip> # CHANGE
+          - <floating-ip> # CHANGE one IP per sslproxy job instance
 
 properties:
   router:
