@@ -23,6 +23,75 @@ bosh deployment examples/openstack.yml
 bosh deploy
 ```
 
+### Self-signed certificates by default
+
+By default you do not need to provide a signed SSL certificate. This is very useful for dev/test deployments.
+
+It will mean that Chrome users, for example, will see the red-screen-of-fear. So, its not ideal for production and your lovely end users.
+
+### BYO certificates
+
+For production you will want to configure your SSL proxy with a signed certificate. You will need two files (or their contents):
+
+* certificate key without a passphrase
+* certificate (with chained intermediate certificates)
+
+The *certificate key* file will likely have a `.key` suffix and its contents will look like:
+
+```
+-----BEGIN RSA PRIVATE KEY-----
+MIIEowIBAAKCAQEA5y0/Mzx0t5cMTCvXHocTjF7XCYLxP0EKwA2eI41q+tMblQ7m
+...
+N2bfPlzHpvFMOBsoQBK1XzrbobeZ7h96yLIw5tFwcO4P6ASCJeQt
+-----END RSA PRIVATE KEY-----
+```
+
+The *chained certificate* file will contain multiple certificates. The top one is the certificate you purchased. Downwards in the file are the intermediate certificates, finishing the the root certificate. You may need to construct the chained certificate yourself.
+
+For example, the chained certificate contents will look like:
+
+```
+-----BEGIN CERTIFICATE-----
+...
+-----END CERTIFICATE-----
+-----BEGIN CERTIFICATE-----
+...
+-----END CERTIFICATE-----
+-----BEGIN CERTIFICATE-----
+...
+-----END CERTIFICATE-----
+```
+
+The content of these two files will now be added to the properties section of your deployment file:
+
+``` yaml
+properties:
+  router:
+    servers:
+      - 0.router.default.cf.microbosh
+      - 1.router.default.cf.microbosh
+
+  sslproxy:
+    https:
+      ssl_key: |
+        -----BEGIN RSA PRIVATE KEY-----
+        MIIEowIBAAKCAQEA5y0/Mzx0t5cMTCvXHocTjF7XCYLxP0EKwA2eI41q+tMblQ7m
+        ...
+        N2bfPlzHpvFMOBsoQBK1XzrbobeZ7h96yLIw5tFwcO4P6ASCJeQt
+      ssl_cert: |
+        -----BEGIN CERTIFICATE-----
+        MIIFAzCCA+ugAwIBAgIDAeiTMA0GCSqGSIb3DQEBBQUAMEAxCzAJBgNVBAYTAlVT
+        ...
+        -----END CERTIFICATE-----
+        -----BEGIN CERTIFICATE-----
+        ...
+        -----END CERTIFICATE-----
+        -----BEGIN CERTIFICATE-----
+        ...
+        -----END CERTIFICATE-----
+```
+
+Note, the `|` after `ssl_key:` and `ssl_cert:` means the following lines are a multi-line string and the end-of-line `\n` are to be retained.
 
 ## Development
 
