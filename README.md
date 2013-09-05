@@ -98,6 +98,9 @@ Note, the `|` after `ssl_key:` and `ssl_cert:` means the following lines are a m
 
 ## Development
 
+## After Steps
+
+Once your SSL proxy is deployed all you need to do is point your Cloud Foundry floating IP at it. i.e. if your DNS name for the Cloud Foundry director is *.cf.mycloud.com, then you need to point that to your SSL proxy IP.
 
 ## Create new final release
 
