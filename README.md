@@ -96,13 +96,13 @@ properties:
 
 Note, the `|` after `ssl_key:` and `ssl_cert:` means the following lines are a multi-line string and the end-of-line `\n` are to be retained.
 
-## Development
-
-## After Steps
+### After Steps
 
 Once your SSL proxy is deployed all you need to do is point your Cloud Foundry floating IP at it. i.e. if your DNS name for the Cloud Foundry director is *.cf.mycloud.com, then you need to point that to your SSL proxy IP.
 
-## Create new final release
+## Development
+
+### Create new final release
 
 To create a new final release you need to get read/write API credentials to the [@cloudfoundry-community](https://github.com/cloudfoundry-community) s3 account.
 
