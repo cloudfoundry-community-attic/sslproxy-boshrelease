@@ -1,3 +1,7 @@
+<% if p('sslproxy.internal_redirect.enabled') %>
+include /var/vcap/jobs/sslproxy/config/location.internal_redirect.conf;
+<% end %>
+
 location / {
   proxy_pass            http://router;
 

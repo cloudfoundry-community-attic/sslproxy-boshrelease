@@ -1,0 +1,34 @@
+# Proxy download 
+location ~* ^/internal_redirect/(https?)/(.*?)/(.*) {
+  # Do not allow people to mess with this location directly
+  # Only internal redirects are allowed
+  internal;
+
+  # Location-specific logging
+  access_log /var/vcap/sys/log/sslproxy/internal_redirect.access.log;
+  error_log /var/vcap/sys/log/sslproxy/internal_redirect.error.log;
+
+  # Extract download url from the request
+  set $download_protocol $1;
+  set $download_host $2;
+  set $download_uri $3;
+
+  # Extract auth-token for swift
+  set $auth_token $upstream_http_x_auth_token;
+
+  # Compose download url
+  set $download_url $download_protocol://$download_host/$download_uri;
+
+  # Set download request headers
+  proxy_set_header Host $download_host;
+  proxy_set_header Authorization '';
+  proxy_set_header X-Auth-Token $auth_token;
+
+  # Do not touch local disks when proxying 
+  # content to clients
+  proxy_max_temp_file_size 0;
+
+  # Download the file and send it to client
+  proxy_pass $download_url;
+}
+

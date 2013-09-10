@@ -2,6 +2,7 @@
 name: sslproxy
 templates:
   location.conf.erb: config/location.conf
+  location.internal_redirect.conf.erb: config/location.internal_redirect.conf
   mime.types: config/mime.types
   nginx.conf.erb: config/nginx.conf
   nginx_ctl: bin/nginx_ctl
@@ -49,6 +50,9 @@ properties:
     description: 'SSL private key (PEM encoded)'
   sslproxy.https.ssl_cert:
     description: 'SSL Certificate (PEM encoded)'
+  sslproxy.internal_redirect.enabled:
+    description: 'Enable/Disable internal redirects (X-Accel-Redirect)'
+    default: false
 
   router.port:
     description: 'Router port'
