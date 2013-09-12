@@ -1,0 +1,20 @@
+---
+packages:
+- name: nginx
+  version: 1
+  sha1: !binary |-
+    MzcwMmEzYzFmNjU4YzBhYmVhYzhlMThkYjRiNGY3MGE4OTU1MjRiZg==
+  fingerprint: !binary |-
+    NzQ5NzU1OWQwNGEzZjkxNmI5NTlhMGFmNWYxMmE4ZTJkOWQyOTdmYg==
+  dependencies: []
+jobs:
+- name: sslproxy
+  version: 4
+  fingerprint: !binary |-
+    NGJmYWMyMDYxNTViMTdhNmMxNzA2NzVjOTVhYTY1NzAyYjkyODlhMg==
+  sha1: !binary |-
+    MDdjZmU4N2Y3ZGIwOGIyN2E2YjJiYzZkY2NlOThkMDMwMDFlN2Q2Yg==
+commit_hash: 4e37826c
+uncommitted_changes: true
+name: sslproxy
+version: 4

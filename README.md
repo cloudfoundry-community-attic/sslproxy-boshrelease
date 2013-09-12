@@ -11,7 +11,7 @@ bosh target BOSH_URL
 bosh login
 git clone https://github.com/cloudfoundry-community/sslproxy-boshrelease.git
 cd sslproxy-boshrelease
-bosh upload release releases/sslproxy-3.yml
+bosh upload release releases/sslproxy-4.yml
 ```
 
 Now update the `examples/openstack*.yml` woth your settings (look up for #CHANGE).
