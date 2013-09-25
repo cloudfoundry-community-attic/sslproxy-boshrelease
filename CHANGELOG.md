@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+v5 - September 25, 2013
+-----------------------
+* Drop SSLv3 support in favour of TLS
+* Disable RC4
+
 v4 - September 12, 2013
 -----------------------
 * Added internal redirect support
