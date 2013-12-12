@@ -27,6 +27,7 @@ networks:
   - name: default
     type: dynamic
     cloud_properties:
+      #net_id: <net-id> # specify net-id when openstack/neutron is running multiple networks
       security_groups:
         - sslproxy # CHANGE: Security group with ports 22, 80 & 443 open
 
