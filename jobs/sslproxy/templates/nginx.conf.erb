@@ -21,6 +21,8 @@ http {
   tcp_nopush         on;
   tcp_nodelay        on;
 
+  underscores_in_headers on;
+
   keepalive_timeout  <%= p('sslproxy.keepalive_timeout') %>;
   client_max_body_size <%= p('sslproxy.max_upload_size') %>;
 
