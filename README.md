@@ -1,17 +1,23 @@
-# Bosh release for a SSL Proxy
+Bosh release for a SSL Proxy
+============================
 
 One of the fastest ways to get a SSL proxy in front of your CloudFoundry router running on any infrastructure is too deploy this bosh release.
 
-## Usage
+Usage
+-----
 
-To use this bosh release, first upload it to your bosh:
+To use this BOSH release, first upload it to your bosh:
 
 ```
-bosh target BOSH_URL
-bosh login
+bosh upload release https://sslproxy-boshrelease.s3.amazonaws.com/sslproxy-redis-5.tgz
+```
+
+To deploy it you will need the source repository that contains templates:
+
+```
 git clone https://github.com/cloudfoundry-community/sslproxy-boshrelease.git
 cd sslproxy-boshrelease
-bosh upload release releases/sslproxy-5.yml
+git checkout v5
 ```
 
 Now update the `examples/openstack*.yml` woth your settings (look up for #CHANGE).
@@ -36,8 +42,8 @@ It will mean that Chrome users, for example, will see the red-screen-of-fear. So
 
 For production you will want to configure your SSL proxy with a signed certificate. You will need two files (or their contents):
 
-* certificate key without a passphrase
-* certificate (with chained intermediate certificates)
+- certificate key without a passphrase
+- certificate (with chained intermediate certificates)
 
 The *certificate key* file will likely have a `.key` suffix and its contents will look like:
 
@@ -67,7 +73,7 @@ For example, the chained certificate contents will look like:
 
 The content of these two files will now be added to the properties section of your deployment file:
 
-``` yaml
+```yaml
 properties:
   router:
     servers:
@@ -100,7 +106,8 @@ Note, the `|` after `ssl_key:` and `ssl_cert:` means the following lines are a m
 
 Once your SSL proxy is deployed all you need to do is point your Cloud Foundry floating IP at it. i.e. if your DNS name for the Cloud Foundry director is *.cf.mycloud.com, then you need to point that to your SSL proxy IP.
 
-## Development
+Development
+-----------
 
 ### Create new final release
 
@@ -110,7 +117,7 @@ Please email [Dr Nic Williams](mailto:&#x64;&#x72;&#x6E;&#x69;&#x63;&#x77;&#x69;
 
 Create a `config/private.yml` file with the following contents:
 
-``` yaml
+```yaml
 ---
 blobstore:
   s3:
