@@ -53,6 +53,9 @@ properties:
   sslproxy.internal_redirect.enabled:
     description: 'Enable/Disable internal redirects (X-Accel-Redirect)'
     default: false
+  sslproxy.redirect_www:
+    description: 'Strip "www." and redirect'
+    default: false
 
   router.port:
     description: 'Router port'
