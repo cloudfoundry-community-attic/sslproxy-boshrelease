@@ -53,6 +53,9 @@ properties:
   sslproxy.internal_redirect.enabled:
     description: 'Enable/Disable internal redirects (X-Accel-Redirect)'
     default: false
+  sslproxy.blacklisted_domains:
+    description: 'Array of domains to disallow routing to via the reverse proxy'
+    default: []
 
   router.port:
     description: 'Router port'
