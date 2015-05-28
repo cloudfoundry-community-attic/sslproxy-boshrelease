@@ -51,6 +51,12 @@ http {
 
     ssl off;
 
+<% if p('sslproxy.blacklisted_domains').length > 0 %>
+    if ($host ~* (<%= p('sslproxy.blacklisted_domains').join("|") %>)$ ) {
+      return 444;
+    }
+
+<% end %>
     include /var/vcap/jobs/sslproxy/config/location.conf;
   }
   <% end %>
@@ -60,6 +66,12 @@ http {
     server_name  _;
     server_name_in_redirect off;
 
+<% if p('sslproxy.blacklisted_domains').length > 0 %>
+    if ($host ~* (<%= p('sslproxy.blacklisted_domains').join("|") %>)$ ) {
+      return 444;
+    }
+
+<% end %>
     ssl on;
     ssl_prefer_server_ciphers on;
     ssl_protocols             TLSv1 TLSv1.1 TLSv1.2;
