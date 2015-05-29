@@ -1,0 +1,16 @@
+---
+packages:
+- name: nginx
+  version: 837518b5824aa0ed1898fe6dc66699b6292a0e37
+  fingerprint: 837518b5824aa0ed1898fe6dc66699b6292a0e37
+  sha1: 2b1d3a6d320efe454d15415cd84b2c138a08651d
+  dependencies: []
+jobs:
+- name: sslproxy
+  version: c8f65ee20664cb924b3a85341df08781dadfbc93
+  fingerprint: c8f65ee20664cb924b3a85341df08781dadfbc93
+  sha1: 1f3882fba401488fcaf1de203bd4ad945dca0418
+commit_hash: 942c8933
+uncommitted_changes: true
+name: sslproxy
+version: '6'
