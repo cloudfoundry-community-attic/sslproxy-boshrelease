@@ -7,4 +7,9 @@ blobs
 .dev_builds
 .idea
 .final_builds/jobs/**/*.tgz
-.final_builds/packages/**/*.tgz
+.final_builds/packages/**/*.tgzreleases/**/*.tgz
+.DS_Store
+*.swp
+*~
+*#
+#*
