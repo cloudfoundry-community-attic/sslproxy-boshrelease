@@ -1,7 +1,7 @@
 Bosh release for a SSL Proxy
 ============================
 
-One of the fastest ways to get a SSL proxy in front of your CloudFoundry router running on any infrastructure is too deploy this bosh release.
+One of the fastest ways to get a SSL proxy in front of your CloudFoundry router running on any infrastructure is to deploy this bosh release.
 
 Usage
 -----
